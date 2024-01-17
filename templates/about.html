@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  
+    body{
+      background:black;
+    }
+  </style>
+<div class="title text-center mb-5 container" style="margin-top:100px;">
+    <h1 class="text-danger"> About Event Manager </h1>
+    <h5 class="text-white" >Master of Logistics, Connoisseur of Celebration </h5>
+    <hr class="text-white">
+  </div>
+  <div class="container bg-secondary" >
+    
+    <div class="row align-items-center" sytle="">
+      <div class="col-lg-6">
+        <div class="div">
+          <img src="{% static './image/banner.png' %}" alt="">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <img src="{% static './image/logo.png' %}" alt="">
+           <p class="text-white py-3">Meet our skilled event manager, a versatile maestro dedicated to turning your vision into a seamless and unforgettable reality.Behind every successful event is a passionate orchestrator. Our event manager breathes life into your ideas, ensuring every detail is executed with precision and flair.</p>
+           <button class="btn btn-primary">About Us</button>
+        </div>
+     </div>
+  
+    </div>
+  </div>
+  
+{% endblock content %}

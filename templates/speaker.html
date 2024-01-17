@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<style>
+  
+  body{
+    background:black;
+  }
+</style>
+    
+<div class="container " style="margin-top:200px;">
+    <div class="title text-center my-5">
+      <h1 class="text-danger"> Meet Our Speaker </h1>
+      <h5 class="text-white" >You can use multi style for speaker section, You only choose it in speaker element settings</h5>
+      <hr class="text-white">
+    </div>
+
+    <div class="row ">
+
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/b4.jpg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/b4.jpg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/b4.jpg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/b4.jpg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

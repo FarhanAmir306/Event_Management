@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  body{
+    background-color:black;
+  }
+ 
+
+
+  {% comment %} ---- upcoming section--  {% endcomment %}
+  .upcoming_section img{
+    height:300px;
+    width:100%;
+  }
+  .upcoming_section{
+    margin-top:50px;
+    height:auto;
+  }
+  
+  </style>
+  {% comment %} ---banner -- {% endcomment %}
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="dark-overlay">
+            <img src="{% static "./image/carosal4.jpeg" %}" class="d-block w-100" alt="...">
+          </div>
+        
+      </div>
+      <div class="carousel-item">
+        <div class="dark-overlay">
+            <img src="{% static "./image/carosal3.jpeg" %}" class="d-block w-100" alt="...">
+          </div>
+       
+      </div>
+      <div class="carousel-item">
+        <div class="dark-overlay">
+            <img src="{% static "./image/carosal2.jpeg" %}" class="d-block w-100" alt="...">
+          </div>
+        
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  {% comment %} --category--- {% endcomment %}
+  <div class="container category_section text-center mt-5">
+    <h1 class="text-danger mb-3" >Latest Events </h1>
+    <a class="btn btn-danger" href="{% url 'home' %}">All</a>
+    {% for cat in categories%}
+    <a class="btn btn-primary" href="{% url 'cat' cat.slug %}">{{cat.name}}</a>
+  {% endfor %}
+  <hr class="text-white">
+  </div>
+
+  {% comment %} ---list ---- {% endcomment %}
+
+   {% if request.user.is_authenticated %}
+    <div class="container">
+      <div class="row">
+        {% for event in events %}
+        <div class="col-lg-3 mt-3" >
+          <div class="">
+            {% if event.image %}
+                      <img src="{{ event.image.url }}" alt="{{ event.event_name }}"style="height:300px;width:100%;">
+                  {% endif %}
+            <div class="text-center p-4" style="background-color:#2a454b;">
+              <div>
+                <h5 class="text-warning">{{ event.event_name }}</h5>
+                <h5 class="text-danger fw-bold">{{ event.attendent}}</h5>
+                <h5 class="text-primary">{{ event.categories.name }}</h5>
+                <p class="fw-bold">Date: {{ event.date }}</p>
+                <p class="fw-bold">Location: {{ event.location }}</p>
+              </div>
+              <p class="card-text text-white">{{ event.description | slice:"0:150" }}</p>
+
+              <div class="button_section">
+                <div>
+                  <a class="btn  btn-primary fs-5 fw-bold w-100 my-3" href="{% url 'details' event.id %}">Details</a> 
+                </div>
+                                                                                              
+                <div class="btn-group " role="group" aria-label="Event Actions">
+                    <a href="{% url 'accept' event.id %}" class="btn btn-success">Accept</a>
+                    <a href="{% url 'decline' event.id %}" class="btn btn-danger">Decline</a>
+              </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>
+    {% else %}
+    <div class="container">
+      <h1 class="text-primary text-center">Please Login to See Our Events and Join Us !</h1>
+    </div>
+    
+    {% endif%} 
+
+     {% comment %} <div class="container">
+      <div class="row">
+        {% for event in events %}
+        <div class="col-lg-3 mt-3" >
+          <div class="">
+            {% if event.image %}
+                      <img src="{{ event.image.url }}" alt="{{ event.event_name }}"style="height:300px;width:100%;">
+                  {% endif %}
+            <div class="text-center p-4" style="background-color:#2a454b;">
+              <div>
+                <h5 class="text-warning">{{ event.event_name }}</h5>
+                <h5 class="text-danger fw-bold">{{ event.attendent}}</h5>
+                <h5 class="text-primary">{{ event.categories.name }}</h5>
+                <p class="fw-bold">Date: {{ event.date }}</p>
+                <p class="fw-bold">Location: {{ event.location }}</p>
+              </div>
+              <p class="card-text text-white">{{ event.description | slice:"0:150" }}</p>
+
+              <div class="button_section">
+                <div>
+                  <a class="btn  btn-primary fs-5 fw-bold w-100 my-3" href="{% url 'details' event.id %}">Details</a> 
+                </div>
+                                                                                              
+                <div class="btn-group " role="group" aria-label="Event Actions">
+                    <a href="{% url 'accept' event.id %}" class="btn btn-success">Accept</a>
+                    <a href="{% url 'decline' event.id %}" class="btn btn-danger">Decline</a>
+              </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+    </div>  {% endcomment %}
+
+<div class="container text-center  " style="margin-top:150px;">
+    <h4 class="text-warning">UPCOMMING EVENTS</h4>
+   <h1 class="text-white">Latest <span class="text-danger fw-bold">Awesome Events</span> </h1>
+   <hr class="text-white">
+</div>
+
+{% comment %} ----- upcoming--- {% endcomment %}
+<div class="container d-flex gap-3 align-items-center upcoming_section">
+  {% for event in upcomings %}
+  <div class="card text-bg-dark border-0">
+    {% if event.image %}
+    <img src="{{ event.image.url }}" class="" alt="{{ event.event_name }}">
+    {% endif %}
+    <div class="card-img-overlay">
+      <h5 class="card-title">{{ event.event_name }}</h5>
+   </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% comment %} -----populer section--- {% endcomment %}
+
+<div class="container " style="margin-top:200px;">
+  <div class="title text-center my-5">
+     <h1 class="text-danger"> Popular venues </h1>
+     <h5 class="text-white" >You can choose multiple venues to display</h5>
+     <hr class="text-white">
+  </div>
+   <div class="row ">
+      <div class="col-lg-6 ">
+        <div class="" style="">
+          <img src="{% static './image/vanue1.jpeg' %}" class="card-img-top rounded " alt="..." style="height:500px;width:100%;">
+          <div class="  text-center p-4" style="background: hsla(211, 66%, 87%, 1);">
+            <div>
+              <h5 class="text-primary">Maldives</h5>
+              <h5 class="text-primary">01.January.2024</h5>
+            </div>
+            <p class="card-text text-dark">Step into a world where every detail is a masterpiece. Our carefully designed interior reflects a blend of modern elegance and timeless charm. From ambient lighting to plush furnishings, every corner of [Venue Name] is curated for a memorable experience.</p>
+            <button class="btn btn-secondary" >Join Us</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 ">
+        <div class="" style="">
+          <img src="{% static './image/vanue2.jpeg' %}" class="card-img-top rounded " alt="..."  style="height:500px;width:100%;">
+          <div class="  text-center p-4" style="background: hsla(211, 66%, 87%, 1);">
+            <div>
+              <h5 class="text-primary">Thiland</h5>
+              <h5 class="text-primary">05.March.2024</h5>
+            </div>
+            <p class="card-text text-dark">Step into a world where every detail is a masterpiece. Our carefully designed interior reflects a blend of modern elegance and timeless charm. From ambient lighting to plush furnishings, every corner of [Venue Name] is curated for a memorable experience.</p>
+            <button class="btn btn-secondary" >Join Us</button>
+          </div>
+        </div>
+      </div>
+   </div>
+</div>
+
+
+{% comment %} ---SPEAKER--- {% endcomment %}
+
+<div class="container " style="margin-top:200px;">
+    <div class="title text-center my-5">
+      <h1 class="text-danger"> Meet Our Speaker </h1>
+      <h5 class="text-white" >You can use multi style for speaker section, You only choose it in speaker element settings</h5>
+      <hr class="text-white">
+    </div>
+
+    <div class="row ">
+
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/spekar1.jpeg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/spekar2.jpeg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/spekar3.jpeg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+      <div class="col-lg-3 ">
+        <div class="" style="">
+          <img src="{% static './image/spekar4.jpg' %}" class="card-img-top rounded" alt="...">
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% comment %} ___About Us -- {% endcomment %}
+
+<div class="title text-center mb-5 container" style="margin-top:100px;">
+  <h1 class="text-danger"> About Event Manager </h1>
+  <h5 class="text-white" >Master of Logistics, Connoisseur of Celebration </h5>
+  <hr class="text-white">
+</div>
+<div class="container " >
+  
+  <div class="row align-items-center" sytle="">
+    <div class="col-lg-6">
+      <div class="div">
+        <img src="{% static './image/banner.png' %}" alt="">
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="text-center">
+        <img src="{% static './image/logo.png' %}" alt="">
+         <p class="text-white py-3">Meet our skilled event manager, a versatile maestro dedicated to turning your vision into a seamless and unforgettable reality.Behind every successful event is a passionate orchestrator. Our event manager breathes life into your ideas, ensuring every detail is executed with precision and flair.</p>
+         <button class="btn btn-primary">About Us</button>
+      </div>
+   </div>
+
+  </div>
+</div>
+
+
+  {% endblock content %}
+

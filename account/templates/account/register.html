@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+<div class="center">
+  <form method="post" novalidate class="form_section">
+    {% csrf_token %}
+    <h2 class="text-center mb-3">Register Account</h2>
+    {% for field in form %}
+    <div class="form-group">
+      <h5 class="input_section text-center">
+        {% if field.field.widget.attrs.placeholder %}
+        <span class="placeholder-text p-2"
+          >{{ field.field.widget.attrs.placeholder }}</span
+        >
+        {% endif %} {{ field }}
+      </h5>
+      {% if field.errors %}
+      <small class="error">{{ field.errors|striptags }}</small>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <input type="submit" value="Register" class="btn btn-primary full-width" />
+    <hr />
+    <!-- Add additional styling or content as needed -->
+  </form>
+</div>
+
+{% endblock content %}

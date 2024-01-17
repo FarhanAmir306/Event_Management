@@ -1,0 +1,29 @@
+{%extends 'base.html'%} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+<div class="center">
+  <form method="post" class="card login_section bg-black text-white" novalidate>
+    {% csrf_token %}
+    <h2 class="text-center">LOGIN</h2>
+    {% for field in form %}
+    <div class="form-group">
+      <h4 class="input_title">{{ field.label_tag }}</h4>
+      <h3 class="input_section text-center">
+        {{ field }} {% if field.errors %}
+        <span class="error">{{ field.errors|striptags }}</span>
+        {% endif %}
+      </h3>
+    </div>
+    {% endfor %}
+
+    <input type="submit" value="Login" class="btn btn-primary full-width" />
+    <hr />
+    <p class="text-center">
+      Forgot your password <a href="#">Reset Password</a>
+    </p>
+    <p class="text-center">
+      Don't have an account? <a href="{% url 'register' %}">Join Now</a>
+    </p>
+  </form>
+</div>
+
+{%endblock content%}

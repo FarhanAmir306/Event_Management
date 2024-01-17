@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+body{
+    background: hsla(205, 46%, 10%, 1); 
+}
+
+
+
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin-block: 2rem;
+  gap: 2rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(20rem, calc(20rem + 2vw), 22rem);
+  overflow: hidden;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  {% comment %} background: #ECE9E6;
+background: linear-gradient(to right, #FFFFFF, #ECE9E6); {% endcomment %}
+background: linear-gradient(90deg, hsla(296, 100%, 6%, 1) 0%, hsla(5, 90%, 24%, 1) 100%);
+
+}
+
+
+
+.card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+
+.tag {
+  align-self: flex-start;
+  padding: .25em .75em;
+  border-radius: 1em;
+  font-size: .75rem;
+}
+
+.tag + .tag {
+  margin-left: .5em;
+}
+
+.tag-blue {
+background: hsla(333, 100%, 53%, 1);
+
+color: #fafafa;
+}
+
+
+.card__body h4 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.card__footer {
+  display: flex;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.user {
+  display: flex;
+  gap: .5rem;
+}
+
+.user__image {
+  border-radius: 50%;
+}
+
+.user__info > small {
+  color: #666;
+}
+
+</style>
+
+<div class="container category_section text-center">
+    
+    <a class="btn btn-danger" href="{% url 'profile' %}">All</a>
+    {% for category in categories%}
+    <a class="btn btn-primary" href="{% url 'category_wise' category.slug %}">{{category.name}}</a>
+  {% endfor %}
+  <hr class="text-white">
+  </div> 
+
+<div class="container text-center d-flex justify-content-center align-items-center">
+    {% for event in events %}
+    <div class="card">
+      <div class="card__header">
+        {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.event_name }}">
+    {% endif %}
+        {% comment %} <img src="https://source.unsplash.com/600x400/?computer" alt="card__image" class="card__image" width="600"> {% endcomment %}
+      </div>
+      <div class="card__body">
+        <span class="tag tag-blue">{{ event.tags }}</span>
+        <h4 class="text-white">{{ event.event_name }}</h4>
+        <p class="text-white">{{ event.description | slice:"0:150" }}</p>
+      
+        <p class="card-text text-white">Category:
+            {{ event.categories.name}}
+       </p> 
+
+   
+        <p class="card-text text-white">Location: {{ event.location }}</p>
+
+      </div>
+      <div class="card__footer">
+        <div class="user">
+            <i class="fa-solid fa-people-group fs-1 text-danger"></i>
+          <div class="user__info">
+            <h5 class="text-white">{{request.user.username}}</h5>
+            <small class="text-white">{{ event.date }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+{% endblock content %}
