@@ -14,5 +14,6 @@ urlpatterns = [
 
     path('profile_category/', views.profile, name='profile'),
     path('profile_category/<slug:category_slug>/', views.profile, name='category_wise'),
+    path('delete/<int:id>/',views.TaskDelete,name='remove'),
     
 ]

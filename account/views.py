@@ -9,6 +9,9 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect ,render
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.views.generic.edit import CreateView
+from . import models
+from . import forms
 
 
 from django.contrib.auth import login
@@ -62,8 +65,11 @@ def user_login(request):
 
 
 
-
 def logout_view(request):
     logout(request)
     messages.success(request,'Logout Successfully !')
     return redirect('login')
+
+
+
+

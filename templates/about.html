@@ -1,34 +1,75 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
+
 <style>
+
+
   
-    body{
-      background:black;
-    }
-  </style>
+
+  .btn-primary {
+    background-color: #007bff; /* Blue primary button color */
+    color: white;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3; 
+  }
+
+  /* Added styles for progress bars */
+  .progress {
+    height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .progress-bar {
+    font-size: 24px;
+    line-height: 25px;
+    white-space: nowrap;
+  }
+</style>
+
+
+
 <div class="title text-center mb-5 container" style="margin-top:100px;">
-    <h1 class="text-danger"> About Event Manager </h1>
-    <h5 class="text-white" >Master of Logistics, Connoisseur of Celebration </h5>
-    <hr class="text-white">
-  </div>
-  <div class="container bg-secondary" >
-    
-    <div class="row align-items-center" sytle="">
-      <div class="col-lg-6">
-        <div class="div">
-          <img src="{% static './image/banner.png' %}" alt="">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="text-center">
-          <img src="{% static './image/logo.png' %}" alt="">
-           <p class="text-white py-3">Meet our skilled event manager, a versatile maestro dedicated to turning your vision into a seamless and unforgettable reality.Behind every successful event is a passionate orchestrator. Our event manager breathes life into your ideas, ensuring every detail is executed with precision and flair.</p>
-           <button class="btn btn-primary">About Us</button>
-        </div>
-     </div>
+  <h1 class="text-danger"> ABOUT ME </h1>
+  <h5 class="text-white" >Master of Logistics, Connoisseur of Celebration </h5>
+  <hr class="text-white">
+</div> 
+ <div class="container rounded-5 p-5" style="background: linear-gradient(90deg, hsla(205, 46%, 30%, 1) 0%, hsla(260, 29%, 36%, 1) 100%)">
   
+  <div class="row align-items-center " sytle="">
+    <div class="col-lg-6 text-white">
+      <div class="div">
+        <h1 >WHY I AM BEST IN MARKET ?</h1>
+        <p>Completely network collaborative web services via user centric initiatives. Quickly promote sticky testing procedures before unique process improvements. Distinctively engineer innovative information whereas revolutionary process improvements.</p>
+        <a href="#" class="btn btn-primary">View More</a>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="text-center ">
+
+        <div class="progress m-5" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success" style="width: 90%">HTML</div>
+          
+        </div>
+        <div class="progress  m-5" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-info text-dark" style="width: 70%">CSS</div>
+        </div>
+        <div class="progress  m-5" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-warning text-dark" style="width: 50%">JS</div>
+        </div>
+        <div class="progress  m-5" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-danger" style="width: 80%">Django</div>
+        </div>
+
+      </div>
     </div>
   </div>
-  
+
+  </div>
+</div> 
+
 {% endblock content %}

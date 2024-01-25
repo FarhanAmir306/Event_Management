@@ -1,29 +1,139 @@
-{%extends 'base.html'%} {% block content %} {% load static %}
-<link rel="stylesheet" href="{% static 'style.css' %}" />
-<div class="center">
-  <form method="post" class="card login_section bg-black text-white" novalidate>
-    {% csrf_token %}
-    <h2 class="text-center">LOGIN</h2>
-    {% for field in form %}
-    <div class="form-group">
-      <h4 class="input_title">{{ field.label_tag }}</h4>
-      <h3 class="input_section text-center">
-        {{ field }} {% if field.errors %}
-        <span class="error">{{ field.errors|striptags }}</span>
-        {% endif %}
-      </h3>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+  body {
+    background: linear-gradient(90deg, hsla(205, 46%, 10%, 1) 0%, hsla(191, 28%, 23%, 1) 50%, hsla(207, 41%, 27%, 1) 100%);
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .card {
+    width: 90%;
+    max-width: 400px;
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .login-image {
+    max-width: 100%;
+    height:600px;
+    margin-right: 20px;
+    object-fit:cover;
+  }
+  
+
+  
+  .input_section {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background:#ecf0f1;
+    color: #555;
+    transition: border-color 0.3s;
+     /* Adjusted margin */
+  }
+  
+  .input_title {
+     font-size:20px;/* Align input titles to the left */
+     margin:10px 10px;/* Add margin below input titles */
+  }
+  
+  .input_section:focus {
+    border-color: #3498db;
+  }
+  
+  input[type="submit"] {
+    background: #2ECC71;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+  
+  a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  a:hover {
+    color: #297aa9;
+  }
+  
+  /* Add media queries for responsive design */
+  @media (max-width: 576px) {
+    .card {
+      width: 100%;
+    }
+  }
+  
+  
+  
+</style>
+
+  <div class="center">
+
+    <div class="row gap-5">
+        <div class="col-lg-5">
+          <img src="{% static 'image/login4.png' %}" alt="" class="login-image">
+        </div>
+        <div class="col-lg-5">
+          <form method="post" class="card" novalidate>
+            {% csrf_token %}
+            <h2 class="text-center">Login</h2>
+            <hr>
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id }}" class="input_title">{{ field.label_tag }}</label>
+                <input type="{{ field.field.widget.input_type }}"
+                       name="{{ field.name }}"
+                       class="input_section"
+                       {% if field.value %} value="{{ field.value }}"{% endif %}
+                       {% if field.field.required %} required{% endif %}>
+                {% if field.errors %}
+                  <small class="error">{{ field.errors|striptags }}</small>
+                {% endif %}
+              </div>
+            {% endfor %}
+      
+            <input type="submit" value="Login" class="btn btn-primary full-width" />
+            <hr />
+            <p>Don't have an account? <a href="{% url 'register' %}">Join Now</a></p>
+          </form>
+        </div>
+
     </div>
-    {% endfor %}
 
-    <input type="submit" value="Login" class="btn btn-primary full-width" />
-    <hr />
-    <p class="text-center">
-      Forgot your password <a href="#">Reset Password</a>
-    </p>
-    <p class="text-center">
-      Don't have an account? <a href="{% url 'register' %}">Join Now</a>
-    </p>
-  </form>
-</div>
-
-{%endblock content%}
+   
+  </div>
+{% endblock content %}

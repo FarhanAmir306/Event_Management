@@ -3,7 +3,7 @@ blinker
 click
 colorama
 crispy-bootstrap5
-dj-database-url  
+dj-database-url
 Django
 django-crispy-forms
 django-environ

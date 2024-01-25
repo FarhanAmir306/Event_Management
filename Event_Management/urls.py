@@ -22,17 +22,15 @@ from django.views.generic import TemplateView
 from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomeView.as_view(),name='home'),
-    # path('list/', views.EventList.as_view(),name='home'),
-    path('category/', views.category_view,name='home'),
+    # path('', views.HomeView.as_view(),name='home'),
+    path('', views.category_view,name='home'),
     path('category/<slug:category_slug>/', views.category_view,name='cat'),
     path('account/',include('account.urls')),
     path('event/',include('organizers.urls')),
     path('about/',TemplateView.as_view(template_name="about.html"),name='about'),
     path('speaker/',TemplateView.as_view(template_name="speaker.html"),name='speek'),
-    path('blog/',TemplateView.as_view(template_name="blog.html"),name='blog'),
-
-    # path('attendent/',include('attendees.urls')),
+    path('project/',views.MyallEvent,name='project'),
+    path('contact/',TemplateView.as_view(template_name="contact.html"),name='contact'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

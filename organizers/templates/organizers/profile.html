@@ -3,139 +3,117 @@
 {% block content %}
 
 <style>
+  body{
+    background-color:black;
+  }
 
-body{
-    background: hsla(205, 46%, 10%, 1); 
-}
-
-
-
-
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1200px;
-  margin-block: 2rem;
-  gap: 2rem;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  width: clamp(20rem, calc(20rem + 2vw), 22rem);
-  overflow: hidden;
-  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 1em;
-  {% comment %} background: #ECE9E6;
-background: linear-gradient(to right, #FFFFFF, #ECE9E6); {% endcomment %}
-background: linear-gradient(90deg, hsla(296, 100%, 6%, 1) 0%, hsla(5, 90%, 24%, 1) 100%);
-
-}
-
-
-
-.card__body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-}
-
-
-.tag {
-  align-self: flex-start;
-  padding: .25em .75em;
-  border-radius: 1em;
-  font-size: .75rem;
-}
-
-.tag + .tag {
-  margin-left: .5em;
-}
-
-.tag-blue {
-background: hsla(333, 100%, 53%, 1);
-
-color: #fafafa;
-}
-
-
-.card__body h4 {
-  font-size: 1.5rem;
-  text-transform: capitalize;
-}
-
-.card__footer {
-  display: flex;
-  padding: 1rem;
-  margin-top: auto;
-}
-
-.user {
-  display: flex;
-  gap: .5rem;
-}
-
-.user__image {
-  border-radius: 50%;
-}
-
-.user__info > small {
-  color: #666;
-}
+  .container_list_section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+  }
+  
+  .card_section {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Fix the typo here */
+    background-color: white;
+    padding-bottom: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    margin: 20px;
+    box-shadow: 0 4px 8px #0000001a;
+    border-radius: 5px 15px;
+    overflow: hidden;
+  }
+  
+  .img_section,
+  .body_section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+  }
+  
+  .img_section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(0);
+    transition: filter 0.5s;
+    border-radius: 5px 15px;
+  }
+  
+  .body_section {
+    transform: translateY(100%);
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+  }
+  
+  .card_section:hover .img_section {
+    filter: blur(5px);
+  }
+  
+  .card_section:hover .img_section + .body_section,
+  .body_section:hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
 
 </style>
 
-<div class="container category_section text-center">
-    
-    <a class="btn btn-danger" href="{% url 'profile' %}">All</a>
-    {% for category in categories%}
-    <a class="btn btn-primary" href="{% url 'category_wise' category.slug %}">{{category.name}}</a>
-  {% endfor %}
-  <hr class="text-white">
-  </div> 
+<div class="container  text-center mt-5">
+  <h1 class="text-danger mb-3" >Latest Events </h1>
+  <a class="btn btn-danger fw-bold" href="{% url 'profile' %}">All</a>
+  {% for cat in categories%}
+  <a class="btn btn-primary fw-bold" href="{% url 'category_wise' cat.slug %}">{{cat.name}}</a>
+{% endfor %}
+<hr class="text-white">
+</div>
 
-<div class="container text-center d-flex justify-content-center align-items-center">
-    {% for event in events %}
-    <div class="card">
-      <div class="card__header">
-        {% if event.image %}
-        <img src="{{ event.image.url }}" alt="{{ event.event_name }}">
-    {% endif %}
-        {% comment %} <img src="https://source.unsplash.com/600x400/?computer" alt="card__image" class="card__image" width="600"> {% endcomment %}
+
+<div class="container container_list_section">
+  {% for profile_event in profile_events %} 
+    <div class="card_section">
+      <div class="img_section">
+        {% if profile_event.event.image %}
+          <img src="{{ profile_event.event.image.url }}" alt="{{ profile_event.event.event_name }}">
+        {% endif %}
       </div>
-      <div class="card__body">
-        <span class="tag tag-blue">{{ event.tags }}</span>
-        <h4 class="text-white">{{ event.event_name }}</h4>
-        <p class="text-white">{{ event.description | slice:"0:150" }}</p>
-      
-        <p class="card-text text-white">Category:
-            {{ event.categories.name}}
-       </p> 
+      <div class="body_section">
+        <div class="text-center p-4" style="background-color:#2a454b;">
+          <div>
+            <h5 class="text-warning">{{ profile_event.event.event_name }}</h5>
+            <h5 class="text-danger fw-bold">{{ profile_event.event.attendent}}</h5>
+            <h5 class="text-primary">{{ profile_event.event.categories.name }}</h5>
+            <p class="fw-bold">Date: {{ profile_event.event.date }}</p>
+            <p class="fw-bold">Location: {{ profile_event.event.location }}</p>
+          </div>
+          <p class="card-text text-white">{{ profile_event.event.description | slice:"0:150" }}</p>
 
-   
-        <p class="card-text text-white">Location: {{ event.location }}</p>
+          <div class="button_section">
+            <div>
+              <a class="btn  btn-primary fs-5 fw-bold w-100 my-3" href="{% url 'details' profile_event.event.id %}">Details</a> 
+            </div>
+                                                                                          
+            <div class="btn-group " role="group" aria-label="Event Actions">
+                
+                <a href="{% url 'remove' profile_event.id %}" class="btn btn-danger">remove</a>
+          </div>
 
-      </div>
-      <div class="card__footer">
-        <div class="user">
-            <i class="fa-solid fa-people-group fs-1 text-danger"></i>
-          <div class="user__info">
-            <h5 class="text-white">{{request.user.username}}</h5>
-            <small class="text-white">{{ event.date }}</small>
           </div>
         </div>
       </div>
     </div>
-    {% endfor %}
+  {% endfor %}
+</div>
 
-  </div>
 {% endblock content %}

@@ -9,7 +9,6 @@ class Attendent(models.Model):
     def __str__(self):
         return f"Attendent: {self.user.username}"
 
-   
 
 
 class Event_Accept(models.Model):
