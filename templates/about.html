@@ -4,72 +4,72 @@
 {% block content %}
 
 <style>
+  body {
+    background: linear-gradient(90deg, hsla(205, 46%, 10%, 1) 0%, hsla(191, 28%, 23%, 1) 50%, hsla(207, 41%, 27%, 1) 100%);
+    font-family: 'Poppins', sans-serif;
+  }
 
+  .about-section {
+    
+    padding: 50px 0;
+    text-align: center;
+  }
 
   
 
-  .btn-primary {
-    background-color: #007bff; /* Blue primary button color */
-    color: white;
-    border: none;
+  .about-section p {
+    color:white;
+    font-size: 18px;
+    line-height: 1.6;
   }
 
-  .btn-primary:hover {
-    background-color: #0056b3; 
+  .title {
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
   }
 
-  /* Added styles for progress bars */
-  .progress {
-    height: 40px;
-    margin-bottom: 15px;
+  .title h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
   }
 
-  .progress-bar {
-    font-size: 24px;
-    line-height: 25px;
-    white-space: nowrap;
+
+  hr {
+    border-color: white;
+    border-width: 3px;
   }
 </style>
 
 
+   
 
-<div class="title text-center mb-5 container" style="margin-top:100px;">
-  <h1 class="text-danger"> ABOUT ME </h1>
-  <h5 class="text-white" >Master of Logistics, Connoisseur of Celebration </h5>
-  <hr class="text-white">
-</div> 
- <div class="container rounded-5 p-5" style="background: linear-gradient(90deg, hsla(205, 46%, 30%, 1) 0%, hsla(260, 29%, 36%, 1) 100%)">
-  
-  <div class="row align-items-center " sytle="">
-    <div class="col-lg-6 text-white">
-      <div class="div">
-        <h1 >WHY I AM BEST IN MARKET ?</h1>
-        <p>Completely network collaborative web services via user centric initiatives. Quickly promote sticky testing procedures before unique process improvements. Distinctively engineer innovative information whereas revolutionary process improvements.</p>
-        <a href="#" class="btn btn-primary">View More</a>
+
+<div class="container">
+  <div class="title ">
+    <h1 class="text-danger"> ABOUT US </h1>
+    <h5 class="text-white">Master of Logistics, Connoisseur of Celebration </h5>
+    <hr class="text-white">
+  </div>
+  <!-- About Us Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row align-items-center ">
+        <div class="col-lg-6 mx-auto">
+          <img src="{% static './image/about1.png' %}" alt="About Us Image" class="img-fluid mb-4">
+        </div>
+        <div class="col-lg-6 mx-auto text-white">
+          <img src="{% static './image/logo.png' %}" alt="About Us Image" class="img-fluid mb-4">
+          <p class="">Welcome to <span><a  class=" fw-bold text-warning" href="{% url 'home' %}">Harmoni Event Management</a></span> System , where we turn your events into unforgettable experiences. Our team specializes in creating seamless, stress-free events that leave lasting impressions.</p>
+          <p class="">Whether it's a corporate conference, a wedding celebration, or a community gathering, we understand the significance of each event. Our dedicated team works tirelessly to ensure every detail is meticulously planned and executed.</p>
+          <p class="">With our user-friendly platform and innovative tools, you can effortlessly plan and coordinate every aspect of your event. From inviting guests to managing schedules, we've got you covered.</p>
+          <p class="">Join [Your Event Management System Name] today and let us be a part of your journey in creating extraordinary moments. Make your events truly exceptional!</p>
+        </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="text-center ">
+  </section>
 
-        <div class="progress m-5" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-success" style="width: 90%">HTML</div>
-          
-        </div>
-        <div class="progress  m-5" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-info text-dark" style="width: 70%">CSS</div>
-        </div>
-        <div class="progress  m-5" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-warning text-dark" style="width: 50%">JS</div>
-        </div>
-        <div class="progress  m-5" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar bg-danger" style="width: 80%">Django</div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  </div>
-</div> 
+</div>
 
 {% endblock content %}
