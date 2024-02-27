@@ -38,3 +38,12 @@ class UpcomingEvent(models.Model):
     image=models.ImageField(upload_to='organizers/media/',null=True,blank=True)
 
 
+class Comment_Post(models.Model):
+    post = models.ForeignKey(Event, on_delete=models.CASCADE,related_name='comments',null=True)
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comments by {self.name}"

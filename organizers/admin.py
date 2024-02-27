@@ -9,5 +9,6 @@ class category_admin(admin.ModelAdmin):
 admin.site.register(models.Category,category_admin)
 admin.site.register(models.Event)
 admin.site.register(models.UpcomingEvent)
+admin.site.register(models.Comment_Post)
 
 

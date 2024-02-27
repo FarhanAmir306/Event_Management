@@ -15,5 +15,9 @@ urlpatterns = [
     path('profile_category/', views.profile, name='profile'),
     path('profile_category/<slug:category_slug>/', views.profile, name='category_wise'),
     path('delete/<int:id>/',views.TaskDelete,name='remove'),
+    path('comments/<int:pk>/',views.PostView.as_view(),name='comment'),
+
+    path('editComment/<int:id>/<int:post_id>/',views.edit_comment,name='editcomment'),
+    path('deleteComment/<int:id>/<int:post_id>/',views.delete_comment,name='deletecomment'),
     
 ]

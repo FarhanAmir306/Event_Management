@@ -60,9 +60,11 @@
         <a class="btn btn-primary text-white fs-5">
              {{ event.tags }}
           </a>
+          <a class="btn btn-warning text-black fs-5"  href="{% url 'comment' event.id %}">Review</a>
       </div>
     </div>
   </div>
 </div>
+
 
 {% endblock content %}

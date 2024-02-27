@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from . import views
+admin.site.site_header="Harmony Event Management Admin Panel"
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', views.HomeView.as_view(),name='home'),

@@ -1,7 +1,8 @@
 from django import forms 
-from . import models
+from . import models 
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
+
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -21,3 +22,7 @@ class UserChange(UserChangeForm):
         fields = ['username', 'first_name', 'last_name']
 
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = models.Comment_Post
+        fields = ['body']

@@ -104,10 +104,12 @@
               <a class="btn  btn-primary fs-5 fw-bold w-100 my-3" href="{% url 'details' profile_event.event.id %}">Details</a> 
             </div>
                                                                                           
-            <div class="btn-group " role="group" aria-label="Event Actions">
+            <div class="" role="group" aria-label="Event Actions">
+    
+                <a href="{% url 'remove' profile_event.id %}" class="btn btn-danger me-2">remove</a>
                 
-                <a href="{% url 'remove' profile_event.id %}" class="btn btn-danger">remove</a>
           </div>
+                
 
           </div>
         </div>
