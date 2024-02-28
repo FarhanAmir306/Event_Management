@@ -16,7 +16,7 @@ class Event_Accept(models.Model):
     event=models.ForeignKey(Event,on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Attendent: {self.name.user.username}, Event: {self.event.event_name}"
+        return f"Join: {self.name.user.username}, Event: {self.event.event_name}"
 
 
 

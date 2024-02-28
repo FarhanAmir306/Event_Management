@@ -63,10 +63,10 @@ def profile(request,category_slug=None):
 
 
 
-class ProfileUpdate(LoginRequiredMixin,UpdateView):
+class ProfileUpdate(UpdateView):
     model = User
-    form_class=forms.UserChange
-    # fields = ['username','first_name','last_name']
+    # form_class=forms.UserChange
+    fields = ['username','first_name','last_name']
     template_name='organizers/edit_profile.html'
     success_url = reverse_lazy('home')
     
@@ -74,22 +74,42 @@ class ProfileUpdate(LoginRequiredMixin,UpdateView):
         return self.request.user
 
     def form_valid(self, form):
+        print('is valid')
         messages.success(self.request, "Your Profile updated successfully.")
         return super(ProfileUpdate,self).form_valid(form)
+
+
+       
 
 
     
 
 
 @login_required
+
+
 def password_reset_by_user(request):
-    form = PasswordChangeForm(user=request.user ,data=request.POST or None)
-    if form.is_valid():
-        form.save()
-        messages.success(request, "Password Change successfully !.")
-        update_session_auth_hash(request, form.user)
-        return redirect('/')
+    form = PasswordChangeForm(user=request.user, data=request.POST or None)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            print(form)
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, "Password changed successfully!")
+            return redirect('/')
+    else:
+        # Handle form errors, if any
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, f"{field}: {error}")
+
     return render(request, 'organizers/password_change.html', {'form': form})
+
+    
+
+
+
 
 @login_required
 def attendent_event(request, id):

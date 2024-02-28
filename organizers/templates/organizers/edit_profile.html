@@ -1,25 +1,21 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <style>
-
-
   /* Add your styles for the profile edit page */
 
   .profile-edit-container {
     max-width: 600px;
     margin: 0 auto;
   }
-  
+
   .profile-edit-form {
     margin-bottom: 20px;
   }
-  
+
   /* Style each form field */
   .profile-edit-form label {
     display: block;
-    font-size:20px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 8px;
   }
@@ -40,70 +36,90 @@
     margin: 0;
   }
 
- 
-  
   .messages {
     list-style: none;
     padding: 0;
   }
-  
+
   .messages li {
     margin: 5px 0;
   }
-  
+
   .profile-details {
     border-top: 1px solid #ddd;
     padding-top: 20px;
     margin-top: 20px;
   }
-  
+
   .profile-details h3 {
     font-size: 18px;
     margin-bottom: 10px;
   }
-  
+
   .profile-details p {
     margin: 0;
   }
-  
-
 </style>
 
-<div class="container text-white">
-  <div class="rounded-5" style=" background: linear-gradient(90deg, hsla(205, 46%, 30%, 1) 0%, hsla(260, 29%, 36%, 1) 100%);">
-    <div class="profile-edit-container ">
-      <div class="container">
-          <h2 class="text-center mt-5">Edit Profile</h2>
-          <hr>
-      </div>
-      <form method="post" enctype="multipart/form-data" class="profile-edit-form p-5" >
-        {% csrf_token %}
-        
-        {{ form.as_p }}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %} {% comment %}
+<form method="post" novalidate class="card">
+  {%csrf_token %} {% for field in form %} {% if field.name == 'completed' %}
+  <p>{{ field.label_tag }} {{ field }}</p>
+  {% if field.errors %}
+  <small class="error">{{ field.errors|striptags }}</small>
+  {% endif %} {% else %} {{ field.label_tag }} {{ field }} {% if field.errors %}
+  <small class="error">{{ field.errors|striptags }}</small>
+  {% endif %} {% endif %} {% endfor %}
 
-        
-        <div class="text-center">
-          <a type="submit" class="btn p-2 fw-bold" style="background:#FDF02E;">Save Changes</a>
-          <a type="submit" class="btn p-2 fw-bold" style="background:#37B649 ;" href="{% url 'password_change' %}">Change Password</a>
+  <div class="form-buttons">
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <a href="{% url 'password_change' %}" class="btn btn-outline"
+      >Change Password</a
+    >
+  </div>
+</form>
+{% endcomment %}
+
+<div class="container  text-white">
+  <div
+    class="rounded-5"
+    style="
+      background: linear-gradient(
+        90deg,
+        hsla(205, 46%, 30%, 1) 0%,
+        hsla(260, 29%, 36%, 1) 100%
+      );
+    "
+  >
+    <div class="profile-edit-container pb-4 pt-2" >
+      <div class="container">
+        <h2 class="text-center mt-5">Edit Profile</h2>
+        <hr />
+      </div>
+      <form method="post" novalidate class="card profile-edit-form p-5 shadow-lg" style="background: linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%);">
+        {% csrf_token %} {% for field in form %}
+        <div class="form-group">
+          {% if field.name == 'completed' %}
+          <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+          {{ field }} {% else %}
+          <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+          {{ field }} {% endif %} {% if field.errors %}
+          <small class="text-danger">{{ field.errors|striptags }}</small>
+          {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="form-buttons d-flex mt-3 text-center">
+          <button type="submit"  class="btn bg-black px-5  text-white">Save </button>
+          <a href="{% url 'password_change' %}" class="btn ms-2 btn-outline bg-danger text-white"
+            >Change Password</a
+          >
         </div>
       </form>
+    </div>
   </div>
-  
 </div>
 
- 
-
-    
-
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    
-  </div>
-
-{% endblock %}
+{% endblock content %}

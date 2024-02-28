@@ -37,6 +37,9 @@ class UpcomingEvent(models.Model):
     categories = models.ManyToManyField(Category, max_length=255, blank=True)
     image=models.ImageField(upload_to='organizers/media/',null=True,blank=True)
 
+    def __str__(self):
+        return f"Upcoming: {self.event_name}"
+
 
 class Comment_Post(models.Model):
     post = models.ForeignKey(Event, on_delete=models.CASCADE,related_name='comments',null=True)
